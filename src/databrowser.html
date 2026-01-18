@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        panes.runDataBrowser()
+      })
+    </script>
+  </head>
+  <body id="PageBody">
+    <!-- solid-panes' OutlineManager injects into this element -->
+    <header id="PageHeader"></header>
+    <div class="TabulatorOutline" id="DummyUUID" role="main">
+        <table id="outline"></table>
+        <div id="GlobalDashboard"></div>
+    </div>
+    <footer id="PageFooter"></footer>
+  </body>
+</html>

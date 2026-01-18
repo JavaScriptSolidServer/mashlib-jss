@@ -1,0 +1,97 @@
+{
+  "name": "mashlib-jss",
+  "version": "0.0.1",
+  "description": "Optimized Solid data browser library using JSS packages (1.4MB minified)",
+  "main": "dist/mashlib.js",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist ./src/versionInfo.ts",
+    "build": "npm run clean && npm run build-version && npm run typecheck && npm run build-dist && npm run postbuild-js",
+    "build-version": "./timestamp.sh > src/versionInfo.ts && eslint 'src/versionInfo.ts' --fix",
+    "build-dist": "webpack --progress --mode=production",
+    "postbuild-js": "rm -f dist/versionInfo.d.ts dist/versionInfo.d.ts.map",
+    "lint": "eslint",
+    "lint-fix": "eslint --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "echo no jest tests",
+    "prepublishOnly": "npm run lint && npm run build && npm run bundlesize",
+    "bundlesize": "bundlesize",
+    "preversion": "npm run lint && npm run typecheck && npm test",
+    "postpublish": "git push origin main --follow-tags",
+    "watch": "npm run build-version && webpack --watch",
+    "start": "npm run build-version && webpack serve --config webpack.config.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavaScriptSolidServer/mashlib-jss.git"
+  },
+  "keywords": [
+    "solid",
+    "decentralized",
+    "widgets",
+    "ui",
+    "web",
+    "rdf",
+    "ldp",
+    "panes",
+    "linked",
+    "data",
+    "browser"
+  ],
+  "author": "Tim Berners-Lee <timbl@mit.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JavaScriptSolidServer/mashlib-jss/issues"
+  },
+  "homepage": "https://github.com/JavaScriptSolidServer/mashlib-jss",
+  "dependencies": {
+    "rdflib": "^2.3.3",
+    "solid-logic-jss": "file:../solid-logic-jss",
+    "solid-panes-jss": "file:../solid-panes-jss",
+    "solid-ui-jss": "file:../solid-ui-jss"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.28.0",
+    "@babel/core": "^7.28.0",
+    "@babel/plugin-transform-runtime": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-typescript": "^7.27.1",
+    "@typescript-eslint/parser": "^8.39.0",
+    "@webpack-cli/serve": "^3.0.1",
+    "babel-loader": "^10.0.0",
+    "bundlesize2": "^0.0.35",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.33.0",
+    "file-loader": "^6.2.0",
+    "globals": "^16.3.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.4",
+    "node-polyfill-webpack-plugin": "^4.1.0",
+    "terser-webpack-plugin": "^5.3.14",
+    "typescript": "^5.9.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "overrides": {
+    "solid-logic": "file:../solid-logic-jss"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/*.min.js",
+      "maxSize": "2 MB",
+      "compression": "brotli"
+    },
+    {
+      "path": "./dist/*[^.min].js",
+      "maxSize": "3 MB",
+      "compression": "brotli"
+    }
+  ]
+}
