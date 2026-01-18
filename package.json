@@ -1,6 +1,6 @@
 {
   "name": "mashlib-jss",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Optimized Solid data browser library using JSS packages (1.4MB minified)",
   "main": "dist/mashlib.js",
   "files": [
