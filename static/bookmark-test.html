@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bookmark Pane Test</title>
+    <link rel="stylesheet" href="/mash.css">
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        #outline {
+            border: 1px solid #ccc;
+            min-height: 400px;
+            padding: 10px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .controls button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bookmark Pane Test</h1>
+
+    <div class="controls">
+        <button onclick="loadBookmarks()">Load Test Bookmarks</button>
+        <button onclick="loadSingleBookmark()">Load Single Bookmark</button>
+    </div>
+
+    <div id="outline"></div>
+
+    <script src="/mashlib.js"></script>
+    <script>
+        const outliner = panes.getOutliner(document)
+
+        async function loadBookmarks() {
+            // Load the test bookmarks file (container-like view)
+            const subject = $rdf.sym(window.location.origin + '/test-bookmarks.ttl')
+
+            // First fetch the data
+            try {
+                await SolidLogic.store.fetcher.load(subject)
+                console.log('Loaded bookmarks data')
+
+                // Clear and render
+                document.getElementById('outline').innerHTML = ''
+                outliner.GotoSubject(subject, true, undefined, true, undefined)
+            } catch (e) {
+                console.error('Failed to load:', e)
+                alert('Failed to load bookmarks: ' + e.message)
+            }
+        }
+
+        async function loadSingleBookmark() {
+            // Load a single bookmark
+            const subject = $rdf.sym(window.location.origin + '/test-bookmarks.ttl#bookmark1')
+
+            try {
+                await SolidLogic.store.fetcher.load(subject.doc())
+                console.log('Loaded bookmark data')
+
+                document.getElementById('outline').innerHTML = ''
+                outliner.GotoSubject(subject, true, undefined, true, undefined)
+            } catch (e) {
+                console.error('Failed to load:', e)
+                alert('Failed to load bookmark: ' + e.message)
+            }
+        }
+
+        // Auto-load on page load
+        window.onload = () => {
+            console.log('Bookmark pane test page loaded')
+            console.log('Click a button to test the bookmark pane')
+        }
+    </script>
+</body>
+</html>

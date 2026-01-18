@@ -1,0 +1,20 @@
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#bookmark1> a schema:Bookmark ;
+    schema:name "Solid Project" ;
+    schema:url <https://solidproject.org> ;
+    schema:description "The official Solid project website - decentralized web standards" ;
+    schema:dateCreated "2024-01-15"^^xsd:date .
+
+<#bookmark2> a schema:Bookmark ;
+    schema:name "GitHub - SolidOS" ;
+    schema:url <https://github.com/solidos> ;
+    schema:description "SolidOS organization on GitHub" ;
+    schema:dateCreated "2024-02-20"^^xsd:date .
+
+<#bookmark3> a schema:Bookmark ;
+    schema:name "Tim Berners-Lee" ;
+    schema:url <https://www.w3.org/People/Berners-Lee/> ;
+    schema:description "Creator of the World Wide Web" ;
+    schema:dateCreated "2024-03-10"^^xsd:date .
